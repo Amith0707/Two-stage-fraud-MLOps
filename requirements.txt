@@ -1,0 +1,19 @@
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+joblib
+ipykernel
+mlflow
+pydantic
+tqdm
+fastapi
+uvicorn
+# Database
+sqlalchemy
+psycopg2-binary
+# Testing
+pytest
+# Extra-algo
+xgboost

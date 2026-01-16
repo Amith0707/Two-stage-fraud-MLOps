@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+.venv
+*.log
+
+# Conda
+*.conda
+*.env
+
+# Data
+data/raw/
+data/processed/
+data/images/
+
+# MLflow
+mlruns/
+
+# Models
+*.pkl
+*.joblib
+
+# Environment
+fraud-mlops-env/
+.vscode/
+
+# Files
+*.ipynb
+explanation.md
