@@ -25,6 +25,6 @@ def split_features(df:pd.DataFrame):
     y=df["Class"]
 
     logger.info(f"Features Shape:{X.shape}")
-    logger.info(f"Target Shape:{X.shape}")
+    logger.info(f"Target Shape:{y.shape}")
 
     return X,y

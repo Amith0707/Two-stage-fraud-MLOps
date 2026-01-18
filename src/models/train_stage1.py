@@ -43,11 +43,12 @@ def train_stage1(X,y,test_size=0.35, random_stage=42):
 
     # Making model predictions
     logger.info("Making predictions..")
-    y_probs=model.predict_proba(X_val_scaled)[:,1]
-    y_pred=(y_probs>0.5).astype(int) # rounding off to 0 or 1 with 0.5 as threshold
+    train_probs=model.predict_proba(X_train_scaled)[:,1]
+    val_probs=model.predict_proba(X_val_scaled)[:,1]
+    y_val_pred=(val_probs>0.5).astype(int) # rounding off to 0 or 1 with 0.5 as threshold
 
-    recall=recall_score(y_true=y_val,y_pred=y_pred)
-    precision=precision_score(y_true=y_val,y_pred=y_pred)
+    recall=recall_score(y_true=y_val,y_pred=y_val_pred)
+    precision=precision_score(y_true=y_val,y_pred=y_val_pred)
 
     logger.info(f"Stage-1 recall: {recall:.4f}")
     logger.info(f"Stage-1 precision: {precision:.4f}")
@@ -57,8 +58,13 @@ def train_stage1(X,y,test_size=0.35, random_stage=42):
         "model":model,
         "scaler":scaler,
         
+        "X_train":X_train,
+        "y_train":y_train,
+        "train_probs":train_probs,
+
         "X_val":X_val,
         "y_val":y_val,
-        "y_probs":y_probs,
-        "y_preds":y_pred
+        "val_probs":val_probs,
+
+        "y_val_pred":y_val_pred
     }
