@@ -2,11 +2,13 @@
 Stage -1 Model training: Logistic Regression
 Responsible for training and evaluating the fast screening model.
 """
-
+import os
+import json
+import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import recall_score,precision_score
+from sklearn.metrics import recall_score,precision_score,accuracy_score
 
 from utils.logger import get_logger
 
@@ -49,7 +51,7 @@ def train_stage1(X,y,test_size=0.35, random_stage=42):
 
     recall=recall_score(y_true=y_val,y_pred=y_val_pred)
     precision=precision_score(y_true=y_val,y_pred=y_val_pred)
-
+    accuracy=accuracy_score(y_true=y_val,y_pred=y_val_pred)
     logger.info(f"Stage-1 recall: {recall:.4f}")
     logger.info(f"Stage-1 precision: {precision:.4f}")
 
@@ -66,5 +68,28 @@ def train_stage1(X,y,test_size=0.35, random_stage=42):
         "y_val":y_val,
         "val_probs":val_probs,
 
-        "y_val_pred":y_val_pred
+        "y_val_pred":y_val_pred,
+
+        "recall":recall,
+        "precision":precision,
+        "accuracy":accuracy
     }
+
+def save_stage1_artifacts(model,scaler,low_threshold:float=0.3,high_threshold:float=0.7,artifact_dir="artifacts/stage1"):
+    """
+    This function is created to save model parameters as artifacts to run in the 
+    inference pipeline when client requests for a model prediction.
+    """
+    os.makedirs(artifact_dir,exist_ok=True)
+    joblib.dump(model,f"{artifact_dir}/model.pkl")
+    joblib.dump(scaler,f"{artifact_dir}/scaler.pkl")
+
+    config={
+        "low_threshold":low_threshold,
+        "high_threshold":high_threshold
+    }
+
+    with open(f"{artifact_dir}/config.json","w") as f:
+        json.dump(config,f)
+
+    logger.info("Stage-1 Artifacts Saved")

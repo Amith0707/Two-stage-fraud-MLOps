@@ -1,3 +1,6 @@
+import os
+import json
+import joblib
 import numpy as np
 from xgboost import XGBClassifier
 from sklearn.metrics import recall_score,precision_score,accuracy_score
@@ -60,5 +63,19 @@ def train_stage2(X_train,y_train,train_probs,X_val,y_val,val_probs,
         "model":model,
         "X_val_stage2":X_val_Stage2,
         "y_val_stage2":y_val_Stage2,
-        "y_val_pred":y_val_pred
+        "y_val_pred":y_val_pred,
+        
+        "recall":recall,
+        "precision":precision,
+        "accuracy":accuracy
     }
+
+def save_stage2_artifacts(model,artifact_dir="artifacts/stage2"):
+    """
+    This function is created to save model parameters as artifacts to run in the 
+    inference pipeline when client requests for a model prediction.
+    """
+    os.makedirs(artifact_dir,exist_ok=True)
+    joblib.dump(model,f"{artifact_dir}/model.pkl")
+    
+    logger.info("Stage-2 Artifacts Saved")

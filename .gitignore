@@ -30,3 +30,8 @@ fraud-mlops-env/
 *.ipynb
 explanation.md
 sample.py
+artifacts/
+
+# Mlflow files
+mlflow.db
+mlartifacts/

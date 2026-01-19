@@ -24,4 +24,4 @@ def compute_final_predictions(stage1_preds,stage2_preds,uncertain_mask,y_true):
     logger.info(f"SYSTEM Precision: {precision:.4f}")
     logger.info(f"SYSTEM Accuracy: {accuracy:.4f}")
 
-    return final_preds    
+    return {"final_preds":final_preds,"recall":recall,"precision":precision,"accuracy":accuracy}    
