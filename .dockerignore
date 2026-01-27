@@ -1,0 +1,41 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# Virtual environments
+fraud-mlops-env/
+venv/
+.venv/
+
+# IDE / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Data (training / raw)
+data/raw/
+data/processed/
+data/images/
+
+# MLflow
+mlruns/
+mlflow.db
+mlartifacts/
+
+# Model artifacts
+*.pkl
+*.joblib
+artifacts/
+
+# Notebooks & misc
+*.ipynb
+explanation.md
+sample.py
